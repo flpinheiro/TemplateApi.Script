@@ -1,10 +1,10 @@
 # Create new solution script
 
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+`Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser`
 
-./solution.ps1 -Name <Name> -Framework <FRAMEWORK>
+`./solution.ps1 -Name <Name> -Framework <FRAMEWORK>`
 
--Framework <FRAMEWORK>
+`-Framework <FRAMEWORK>`
 
 Specifies the framework to target. Option not available in .NET Core 2.2 SDK.
 
@@ -19,9 +19,9 @@ The following table lists the default values according to the SDK version number
 |3.0 | netcoreapp3.0 |
 |2.1 | netcoreapp2.1 |
 
-execute ```dotnet --list-sdks``` to know wich sdk is installed on yur machine
+execute `dotnet --list-sdks` to know wich sdk is installed on yur machine
 
 ## default values
 
-* -Name = Template
-* -Framework = net6.0
+* `-Name = Template`
+* `-Framework = net6.0`
