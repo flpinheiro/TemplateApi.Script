@@ -31,13 +31,15 @@ dotnet add "test/UnitTest" reference "src/WebApi"
 
 write-host "Adding dotnet tools"
 dotnet new tool-manifest
-# dotnet tool install dotnet-ef --version 7.0.9
+
 dotnet tool install Versionize --version 1.18.0
 
 if($Entity)
 {
     write-host "Installing Entity Framework"
-
+    
+    dotnet tool install dotnet-ef --version 7.0.9
+    
     switch ($Database) {
         "Oracle"
         {
@@ -61,14 +63,15 @@ if($Entity)
         }
         "mssql" 
         {  
-            dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore --version 7.0.9
+            dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore.SqlServer --version 7.0.9
         }
         Default 
         {
-            dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore --version 7.0.9
+            dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore.SqlServer --version 7.0.9
         }
     }
-    dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore.SqlServer --version 7.0.9
+    dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore --version 7.0.9
+    dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore.Relational --version 7.0.9
 }
 
 write-host "Solution created with success"
