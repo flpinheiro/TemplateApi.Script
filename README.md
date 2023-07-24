@@ -4,7 +4,7 @@ This is a powershell script to build a DotNet Solution Template. To use this tem
 
 `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser`
 
-`./solution.ps1 -Name <Name> -Framework <FRAMEWORK>`
+`./solution.ps1 -Name <Name> -Framework <FRAMEWORK> -Database <Database Name>`
 
 ## Default values
 
@@ -12,8 +12,10 @@ The Default values are:
 
 * `<Name> = Template`
 * `<Framework> = net7.0`
+* `<Entity> = true` 
+* `<Database> = mssql`
 
-## Possible Framework Values
+### Possible Framework Values
 
 `-Framework <FRAMEWORK>`
 
@@ -27,10 +29,30 @@ The following table lists the default values according to the SDK version number
 |6.0 | net6.0 |
 |5.0 | net5.0 |
 |3.1 | netcoreapp3.1 |
-|3.0 | netcoreapp3.0 |
-|2.1 | netcoreapp2.1 |
 
 execute `dotnet --list-sdks` to know wich sdk is installed on yur machine
+
+### Possible Database Names avalible
+
+set `<Entity> = false`, if you don't want to install Entity Framework and Entity FrameWork Provider.
+
+|Database Name | Nuget Url|
+|-|-|
+|mssql   | [Microsoft sql server](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/7.0.9) | 
+|sqlite  | [SqLite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/7.0.9) |
+|npgsql  | [PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/7.0.4) |
+|mysql   | [MySql](https://www.nuget.org/packages/MySql.EntityFrameworkCore/7.0.5) |
+|oracle  | [Oracle](https://www.nuget.org/packages/Oracle.EntityFrameworkCore/7.21.9) | 
+|pomelo  | [Pomelo](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/7.0.0) |
+
+any other database provider sould be instaled separeted, also are instaled
+
+|Package Name | Nuget url |
+|-|-|
+| Entity Framework Tools | [dotnet-ef ](https://www.nuget.org/packages/dotnet-ef/7.0.9) |
+|Entity Framework Core| [EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/7.0.9) |
+
+
 
 # Template Architeture
 
