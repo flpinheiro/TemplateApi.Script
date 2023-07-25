@@ -1,0 +1,15 @@
+services:
+  mssql_db:
+    build: .
+    container_name: mssql_db
+    image: mssql-template
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_volume:/var/opt/mssql
+    environment:
+      SA_PASSWORD: StrongPassw0rd
+      ACCEPT_EULA: Y
+
+volumes:
+  mssql_volume:
