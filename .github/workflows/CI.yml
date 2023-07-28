@@ -13,23 +13,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     # Map a step output to a job output
-    outputs:
-      version: ${{ steps.get-version.outputs.version }}
+    # outputs:
+    #   version: ${{ steps.get-version.outputs.version }}
 
     steps:
     - uses: actions/checkout@v3
-      with: 
-        fetch-depth: 0
+      # with: 
+      #   fetch-depth: 0
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
 
-    - name: add git credentials
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    # - name: add git credentials
+    #   run: |
+    #     git config --global user.name "github-actions[bot]"
+    #     git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
     - name: Restore dependencies
       run: dotnet restore 
@@ -47,4 +47,3 @@ jobs:
         name: DOTNET Tests                      # Name of the check run which will be created
         path: test/UniTest/TestResults/*.trx    # Path to test results
         reporter: dotnet-trx                    # Format of test results
-        

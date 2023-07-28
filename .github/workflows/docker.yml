@@ -1,8 +1,8 @@
-name: 'Test Report'
+name: 'Docker'
 
 on:
     workflow_run:
-        workflows: ['Test Report']
+        workflows: ['Version']
         types:
             - completed
 
@@ -16,17 +16,22 @@ jobs:
           uses: docker/setup-qemu-action@v2
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v2
+        # add to github repository secrets:
+        # DOCKERHUB_USERNAME
+        # DOCKERHUB_TOKEN
+        # DOCKER_IMAGENAME
         - name: Login to Docker Hub
           uses: docker/login-action@v2
           with:
             username: ${{ secrets.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_TOKEN }}
-        
+
+        # update Docker tags username/imagename:version
         - name: Build and push Api Image
           uses: docker/build-push-action@v3
           with:
             context: .
-            file: ./TemplateApi/Dockerfile
+            file: ./src/WebApi/Dockerfile
             push: true
-            tags: flpinheiro/template_api:latest,flpinheiro/template_api:${{needs.build.outputs.version}}                    
-            
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGENAME }}:latest,${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGENAME }}:${{needs.versionize.outputs.version}}
+        #   tags: username/imagename:version
