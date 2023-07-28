@@ -1,0 +1,25 @@
+name: 'Test Report'
+
+on:
+    workflow_run:
+        workflows: ['CI']
+        types:
+            - completed
+
+jobs:
+    versionize:
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.get-version.outputs.version }}        
+        steps:
+        - name: dotnet tool restore
+          run: dotnet tool restore
+        - name: Versionize
+          run: dotnet tool run versionize
+      
+        - name: get-version
+          id: get-version
+          run: echo "version=$(dotnet tool run versionize inspect)" >> $GITHUB_OUTPUT
+      
+        - name: git push changelog
+          run: git push --follow-tags origin master
