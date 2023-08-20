@@ -1,4 +1,4 @@
-param([string] $name="Template", [string] $Framework="net7.0", [bool] $Entity=$true, [string] $Database="mssql")
+param([string] $name="Template", [string] $Framework="net7.0")
 
 write-host "Creating Main solution"
 dotnet new sln -n "$name"
@@ -31,50 +31,8 @@ dotnet add "test/UnitTest" reference "src/WebApi"
 
 write-host "Adding dotnet tools"
 dotnet new tool-manifest
-
 dotnet tool install Versionize --version 1.18.0
 
-if($Entity)
-{
-    write-host "Installing Entity Framework"
-    
-    dotnet tool install dotnet-ef --version 7.0.9
-    
-    switch ($Database) {
-        "Oracle"
-        {
-            dotnet add "src/Infraestructure" package Oracle.EntityFrameworkCore --version 7.21.9
-        }
-        "MySql"
-        {
-            dotnet add "src/Infraestructure" package MySql.EntityFrameworkCore --version 7.0.5
-        }
-        "Pomelo"
-        {
-            dotnet add "src/Infraestructure" package Pomelo.EntityFrameworkCore.MySql --version 7.0.0
-        }
-        "npgsql"
-        {
-            dotnet add "src/Infraestructure" package Npgsql.EntityFrameworkCore.PostgreSQL --version 7.0.4
-        }
-        "sqlite"
-        {
-            dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore.Sqlite --version 7.0.9
-        }
-        "mssql" 
-        {  
-            dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore.SqlServer --version 7.0.9
-        }
-        Default 
-        {
-            dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore.SqlServer --version 7.0.9
-        }
-    }
-    dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore --version 7.0.9
-    dotnet add "src/Infraestructure" package Microsoft.EntityFrameworkCore.Relational --version 7.0.9
-}
-
 write-host "Solution created with success"
-
 write-host "solution name: $name.sln"
 write-host "Framework used: $Framework"
